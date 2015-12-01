@@ -38,6 +38,11 @@ RCT_CUSTOM_VIEW_PROPERTY(hideBackground, BOOL, RNSearchBar)
     }
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(cancelButtonText, NSString, RNSearchBar)
+{
+    [view setCancelButtonText:[RCTConvert NSString:json]];
+}
+
 RCT_CUSTOM_VIEW_PROPERTY(textFieldBackgroundColor, UIColor, RNSearchBar)
 {
   if ([RCTConvert UIColor:json]) {

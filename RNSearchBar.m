@@ -13,6 +13,13 @@
   NSInteger _nativeEventCount;
 }
 
+NSString *cancelButtonText = nil;
+
+- (void)setCancelButtonText:(NSString *)text
+{
+    cancelButtonText = text;
+}
+
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher
 {
   if ((self = [super initWithFrame:CGRectMake(0, 0, 1000, 44)])) {
@@ -35,7 +42,14 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-  [self setShowsCancelButton:self.showsCancelButton animated:YES];
+    [self setShowsCancelButton:self.showsCancelButton animated:YES];
+    if (cancelButtonText) {
+        for (UIView *subView in [[searchBar.subviews objectAtIndex:0] subviews]){
+            if([subView isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView setTitle:cancelButtonText forState:UIControlStateNormal];
+            }
+        }
+    }
 
 
   [_eventDispatcher sendTextEventWithType:RCTTextEventTypeFocus
